@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndGearbest", "AndGearbest\AndGearbest.csproj", "{34875E25-9775-42D8-9022-B8503960333E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndGearbest.Example", "AndGearbest.Example\AndGearbest.Example.csproj", "{FB5D3085-D33C-44CF-BD5C-5CE651FC422F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34875E25-9775-42D8-9022-B8503960333E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34875E25-9775-42D8-9022-B8503960333E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34875E25-9775-42D8-9022-B8503960333E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34875E25-9775-42D8-9022-B8503960333E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB5D3085-D33C-44CF-BD5C-5CE651FC422F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5D3085-D33C-44CF-BD5C-5CE651FC422F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5D3085-D33C-44CF-BD5C-5CE651FC422F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5D3085-D33C-44CF-BD5C-5CE651FC422F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAD3F3C3-5870-415C-A46D-2EA5A699D4E2}
+	EndGlobalSection
+EndGlobal

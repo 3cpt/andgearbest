@@ -1,0 +1,26 @@
+language: csharp
+sudo: required
+dist: trusty
+
+mono: 3.8.0
+dotnet: 1.0.0
+
+branches:  
+  only:
+    - master
+
+# solution: andgearbest.sln
+
+script:
+  # Build the source
+  - cd src/andgearbest
+  - dotnet restore
+  - dotnet build -c Release
+  
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - dotnet pack -c release && dotnet nuget push *.nupkg -k $NUGET_API_KEY
+  on:
+    branch: master

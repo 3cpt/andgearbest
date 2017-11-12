@@ -1,8 +1,17 @@
 language: csharp  
 mono: none  
 dotnet: 2.0.0  
-dist: trusty  
+dist: trusty 
+
 script:
  - cd src
  - dotnet restore
  - dotnet build
+ 
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - dotnet pack -c release && dotnet nuget push *.nupkg -k $NUGET_API_KEY
+  on:
+    branch: master

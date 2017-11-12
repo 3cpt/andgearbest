@@ -2,11 +2,19 @@
 
 namespace AndGearbest.Example
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            IGearbestApi api = GearbestApi.GetGearbestApi("", "", "aaaa");
+
+            var result = api.GetCouponsAsync(1);
+
+            var coupons = result.Result;
+
+            IGearbestApi api3 = GearbestApi.GetGearbestApi("", "");
         }
     }
 }

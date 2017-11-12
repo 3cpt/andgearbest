@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AndGearbest
+﻿namespace AndGearbest
 {
+    using System.Threading.Tasks;
+    using AndGearbest.Models;
+
     public interface IGearbestApi
     {
+        Task<ResponseData<Coupon>> GetCouponsAsync(int page);
     }
 }

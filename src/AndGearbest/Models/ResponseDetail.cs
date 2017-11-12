@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AndGearbest.Models
+﻿namespace AndGearbest.Models
 {
-    class ResponseDetail
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
+    public class ResponseDetail<TType>
     {
+        [JsonProperty("total_results")]
+        public int TotalResults { get; set; }
+
+        [JsonProperty("total_pages")]
+        public int TotalPages { get; set; }
+
+        [JsonProperty("items")]
+        public List<TType> Items { get; set; }
     }
 }

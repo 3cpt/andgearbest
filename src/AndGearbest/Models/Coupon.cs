@@ -1,25 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AndGearbest.Models
+﻿namespace AndGearbest.Models
 {
+    using System;
+    using Newtonsoft.Json;
+
     public class Coupon
     {
-        public string coupon_name { get; set; }
+        [JsonProperty("coupon_name")]
+        public string CouponName { get; set; }
 
-        public string category { get; set; }
+        [JsonProperty("category")]
+        public string Category { get; set; }
 
-        public string coupon_code { get; set; }
+        [JsonProperty("coupon_code")]
+        public string CouponCode { get; set; }
 
-        public DateTime start_time { get; set; }
+        [JsonProperty("start_time")]
+        public DateTime StartTime { get; set; }
 
-        public DateTime end_time { get; set; }
+        [JsonProperty("end_time")]
+        public DateTime EndTime { get; set; }
 
-        public string language { get; set; }
+        [JsonProperty("language")]
+        public string Language { get; set; }
 
-        public string coupon_url { get; set; }
+        [JsonProperty("coupon_url")]
+        public string CouponUrl { get; set; }
 
-        public string promotion_url { get; set; }
+        [JsonProperty("promotion_url")]
+        public string PromotionUrl { get; set; }
     }
 }

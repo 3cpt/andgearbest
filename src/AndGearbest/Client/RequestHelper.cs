@@ -1,9 +1,9 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace AndGearbest
+﻿namespace AndGearbest.Client
 {
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
+
     public static class RequestHelper
     {
         public static string CreateMD5Key(string input, bool replaceSlash)

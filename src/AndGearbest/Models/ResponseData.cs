@@ -14,6 +14,6 @@
         public string Request { get; set; }
 
         [JsonProperty("data")]
-        public ResponseData<TType> Data { get; set; }
+        public ResponseDetail<TType> Data { get; set; }
     }
 }

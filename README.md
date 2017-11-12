@@ -39,7 +39,7 @@ This wrapper uses [Newtonsoft.Json](https://www.nuget.org/packages/newtonsoft.js
 
 ## License
 
-Is under the [MIT license](LICENSE.md).
+Is under the [MIT license](LICENSE).
 
 ## Disclaimer
 

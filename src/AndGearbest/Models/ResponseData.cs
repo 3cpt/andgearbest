@@ -7,7 +7,7 @@
         [JsonProperty("error_no")]
         public int ErrorNo { get; set; }
 
-        [JsonProperty("mgs")]
+        [JsonProperty("msg")]
         public string Message { get; set; }
 
         [JsonProperty("request")]

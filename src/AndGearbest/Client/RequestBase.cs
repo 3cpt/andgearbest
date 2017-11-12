@@ -18,7 +18,7 @@
 
         public string SecretKey { get; }
 
-        public string Lkid { get; }
+        public string Lkid { get; } = "11895618";
 
         internal RequestBase(string apiKey, string secretKey, string lkid)
         {
@@ -29,7 +29,8 @@
 
             this.ApiKey = apiKey;
             this.SecretKey = secretKey;
-            this.Lkid = lkid;
+            if (lkid != null)
+                this.Lkid = lkid;
 
             httpClient = new HttpClient();
         }
@@ -44,9 +45,8 @@
 
         protected string BuildArgumentsString(Dictionary<string, string> arguments)
         {
+            arguments.Add("lkid", this.Lkid);
 
-            if (!string.IsNullOrWhiteSpace(this.Lkid))
-                arguments.Add("lkid", this.Lkid);
             var concatSecret = ConcatUrlQueryParamsWithSecret(arguments);
 
             arguments.Add("sign", CreateMD5Key(concatSecret));
@@ -108,8 +108,6 @@
                     throw new HttpRequestException("404, Resource not found");
                 case HttpStatusCode.Forbidden:
                     throw new HttpRequestException("403, Forbidden");
-                case (HttpStatusCode)429:
-                    throw new HttpRequestException("429, Rate Limit Exceeded");
                 default:
                     throw new HttpRequestException("Unexpeced failure");
             }

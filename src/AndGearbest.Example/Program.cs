@@ -1,4 +1,5 @@
 ﻿using System;
+using AndGearbest.Defaults;
 
 namespace AndGearbest.Example
 {
@@ -6,15 +7,29 @@ namespace AndGearbest.Example
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            try
+            {
+                var key = "";
+                var secret = "";
 
-            IGearbestApi api = GearbestApi.GetGearbestApi("", "", "aaaa");
+                Console.WriteLine("Hello World!");
 
-            var result = api.GetCouponsAsync(1);
+                IGearbestApi api = GearbestApi.GetGearbestApi(key, secret);
 
-            var coupons = result.Result;
+                var coupons = api.GetCouponsAsync().Result;
 
-            IGearbestApi api3 = GearbestApi.GetGearbestApi("", "");
+                var productCreative = api.GetProductCreativeAsync(ProductCreativeType.HottestDeals).Result;
+
+                var events = api.GetEventCreativeAsync(EventType.TopBrands).Result;
+
+                var promos = api.GetPromotionProductAsync(CurrencyType.USD).Result;
+
+                var orders = api.GetCompletedOrderAsync(DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1)).Result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

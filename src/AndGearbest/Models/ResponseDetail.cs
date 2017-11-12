@@ -12,6 +12,6 @@
         public int TotalPages { get; set; }
 
         [JsonProperty("items")]
-        public List<TType> Items { get; set; }
+        public IEnumerable<TType> Items { get; set; }
     }
 }

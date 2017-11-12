@@ -1,20 +1,8 @@
-language: csharp
-sudo: required
-dist: trusty
-
-mono: 3.8.0
-dotnet: 1.0.0
-
-branches:  
-  only:
-    - master
-
-# solution: andgearbest.sln
-
+language: csharp  
+mono: none  
+dotnet: 2.0.0  
+dist: trusty  
 script:
-  # Build the source
-  - cd src/andgearbest
-  - dotnet restore
-  - dotnet build -c Release
-  
-
+ - cd src
+ - dotnet restore
+ - dotnet build

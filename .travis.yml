@@ -4,7 +4,7 @@ dotnet: 2.0.0
 dist: trusty 
 
 script:
- - cd src
+ - cd src/AndGearbest
  - dotnet restore
  - dotnet build
  

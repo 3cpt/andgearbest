@@ -20,7 +20,7 @@
         private readonly RequestBase requestBase;
         private static GearbestApi gearbestApi;
 
-        private GearbestApi(string apiKey, string secretKey, string lkid)
+        public GearbestApi(string apiKey, string secretKey, string lkid)
         {
             if (this.requestBase == null)
             {

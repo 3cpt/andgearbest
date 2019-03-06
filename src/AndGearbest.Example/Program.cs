@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AndGearbest.Defaults;
 
 namespace AndGearbest.Example
@@ -16,17 +17,25 @@ namespace AndGearbest.Example
 
                 IGearbestApi api = GearbestApi.GetGearbestApi(key, secret);
 
-                var coupons = api.GetCouponsAsync().Result;
+                var coupons = api.GetCouponsAsync(Category.CellPhones, LanguageType.po).Result;
+                
+                //foreach (var c in coupons.Data.Items.GroupBy(c => c.Language))
+                //{
+                //    Console.WriteLine(c.Key);
+                //}
 
-                var productCreative = api.GetProductCreativeAsync(ProductCreativeType.HottestDeals).Result;
+                if (false)
+                {
+                    var productCreative = api.GetProductCreativeAsync(ProductCreativeType.HottestDeals).Result;
 
-                var events = api.GetEventCreativeAsync(EventType.TopBrands).Result;
+                    var events = api.GetEventCreativeAsync(EventType.TopBrands).Result;
 
-                var promos = api.GetPromotionProductAsync(CurrencyType.USD).Result;
+                    var promos = api.GetPromotionProductAsync(CurrencyType.USD).Result;
 
-                var orders = api.GetCompletedOrderAsync(DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1)).Result;
+                    var orders = api.GetCompletedOrderAsync(DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1)).Result;
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

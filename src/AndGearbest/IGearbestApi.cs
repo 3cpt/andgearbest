@@ -7,7 +7,7 @@
 
     public interface IGearbestApi
     {
-        Task<ResponseData<Coupon>> GetCouponsAsync(int page = 1);
+        Task<ResponseData<Coupon>> GetCouponsAsync(Category category = Category.None, LanguageType languageType = LanguageType.none, int page = 1);
 
         Task<ResponseData<ProductCreative>> GetProductCreativeAsync(ProductCreativeType productCreativeType, int page = 1);
 

@@ -18,19 +18,26 @@
 
         public string SecretKey { get; }
 
-        public string Lkid { get; } = "11895618";
+        public string Lkid { get; } = "19955328";
 
         internal RequestBase(string apiKey, string secretKey, string lkid)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
+            {
                 throw new ArgumentNullException(nameof(apiKey));
+            }
+
             if (string.IsNullOrWhiteSpace(secretKey))
+            {
                 throw new ArgumentNullException(nameof(secretKey));
+            }
 
             this.ApiKey = apiKey;
             this.SecretKey = secretKey;
             if (lkid != null)
+            {
                 this.Lkid = lkid;
+            }
 
             httpClient = new HttpClient();
         }

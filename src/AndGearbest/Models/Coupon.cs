@@ -17,10 +17,10 @@
         [JsonProperty("coupon_code")]
         public string CouponCode { get; set; }
 
-        [JsonProperty("start_time")]
+        [JsonProperty("start_date")]
         public DateTime StartTime { get; set; }
 
-        [JsonProperty("end_time")]
+        [JsonProperty("end_date")]
         public DateTime EndTime { get; set; }
 
         [JsonProperty("language")]
@@ -39,7 +39,7 @@
         public decimal DiscountedPrice { get; set; }
 
         [JsonProperty("discount_percent")]
-        public decimal DiscountPercent { get; set; }
+        public decimal? DiscountPercent { get; set; }
 
         [JsonProperty("image_url")]
         public string ImageUrl { get; set; }

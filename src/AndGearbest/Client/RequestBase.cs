@@ -9,16 +9,11 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class RequestBase
+    internal class RequestBase
     {
-        private const string apiEndpoint = "affiliate.gearbest.com/api";
-        private readonly HttpClient httpClient;
+        private const string _apiEndpoint = "affiliate.gearbest.com/api";
 
-        public string ApiKey { get; }
-
-        public string SecretKey { get; }
-
-        public string Lkid { get; } = "19955328";
+        private readonly HttpClient _httpClient;
 
         internal RequestBase(string apiKey, string secretKey, string lkid)
         {
@@ -33,24 +28,72 @@
             }
 
             this.ApiKey = apiKey;
+
             this.SecretKey = secretKey;
+
             if (lkid != null)
             {
                 this.Lkid = lkid;
             }
 
-            httpClient = new HttpClient();
+            _httpClient = new HttpClient();
+        }
+
+        public string ApiKey { get; }
+
+        public string Lkid { get; } = "19955328";
+
+        public string SecretKey { get; }
+
+        internal async Task<string> GetAsync(HttpRequestMessage request)
+        {
+            var response = await _httpClient.GetAsync(request.RequestUri);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                HandleRequestFailure(response.StatusCode);
+            }
+
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        internal async Task<HttpResponseMessage> PostAsync(HttpRequestMessage request)
+        {
+            var response = await _httpClient.PostAsync(request.RequestUri, request.Content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                HandleRequestFailure(response.StatusCode);
+            }
+
+            return response;
         }
 
         internal HttpRequestMessage PrepareRequest(string resource, HttpMethod httpMethod, Dictionary<string, string> arguments)
         {
             var scheme = "https";
-            var url = $"{scheme}://{apiEndpoint}{resource}?api_key={ApiKey}{BuildArgumentsString(arguments)}";
+
+            var url = $"{scheme}://{_apiEndpoint}{resource}?api_key={ApiKey}{BuildArgumentsString(arguments)}";
 
             return new HttpRequestMessage(httpMethod, url);
         }
 
-        protected string BuildArgumentsString(Dictionary<string, string> arguments)
+        private static string CreateMD5Key(string input)
+        {
+            var result = string.Empty;
+
+            using (var md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                result = BitConverter.ToString(hashBytes);
+            }
+
+            return result.Replace("-", "").ToUpper();
+        }
+
+        private string BuildArgumentsString(Dictionary<string, string> arguments)
         {
             arguments.Add("lkid", this.Lkid);
 
@@ -65,41 +108,24 @@
             return res;
         }
 
-        protected async Task<string> GetResponseContentAsync(HttpResponseMessage response)
+        private string ConcatUrlQueryParamsWithSecret(Dictionary<string, string> queryParams)
         {
-            Task<string> result = null;
-            using (response)
+            var result = $"{this.SecretKey}api_key{this.ApiKey}";
+
+            var listOfSortedKeys = queryParams.Keys.ToList();
+
+            listOfSortedKeys.Sort();
+
+            foreach (var key in listOfSortedKeys)
             {
-                using (var content = response.Content)
-                {
-                    result = content.ReadAsStringAsync();
-                }
+                result += key;
+                result += queryParams[key];
             }
-            return await result;
+
+            return result + this.SecretKey;
         }
 
-        internal async Task<string> GetAsync(HttpRequestMessage request)
-        {
-            var response = await httpClient.GetAsync(request.RequestUri);
-            if (!response.IsSuccessStatusCode)
-            {
-                HandleRequestFailure(response.StatusCode);
-            }
-            return await GetResponseContentAsync(response);
-        }
-
-        internal async Task<HttpResponseMessage> PostAsync(HttpRequestMessage request)
-        {
-            var response = await httpClient.PostAsync(request.RequestUri, request.Content);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                HandleRequestFailure(response.StatusCode);
-            }
-            return response;
-        }
-
-        protected void HandleRequestFailure(HttpStatusCode statusCode)
+        private void HandleRequestFailure(HttpStatusCode statusCode)
         {
             switch (statusCode)
             {
@@ -118,38 +144,6 @@
                 default:
                     throw new HttpRequestException("Unexpeced failure");
             }
-        }
-
-        private string ConcatUrlQueryParamsWithSecret(Dictionary<string, string> queryParams)
-        {
-            var result = $"{this.SecretKey}api_key{this.ApiKey}";
-
-            var listOfSortedKeys = queryParams.Keys.ToList();
-
-            listOfSortedKeys.Sort();
-
-            foreach (var key in listOfSortedKeys)
-            {
-                result = result + key;
-                result = result + queryParams[key];
-            }
-
-            return result + this.SecretKey;
-        }
-
-        private static string CreateMD5Key(string input)
-        {
-            var result = string.Empty;
-
-            using (var md5 = MD5.Create())
-            {
-                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
-
-                result = BitConverter.ToString(hashBytes);
-            }
-
-            return result.Replace("-", "").ToUpper();
         }
     }
 }

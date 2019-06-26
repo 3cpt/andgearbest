@@ -23,6 +23,7 @@ steps:
     projects: '**/AndGearbest.csproj'
 
 - script: dotnet pack /p:PackageVersion='0.3.$(Build.BuildId)' --configuration $(buildConfiguration)  -o $(Build.ArtifactStagingDirectory)
+  workingDirectory: 'src/AndGearbest'
 
 - task: PublishBuildArtifacts@1
   inputs:

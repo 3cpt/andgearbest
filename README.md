@@ -1,9 +1,9 @@
 # AndGearbest
 
-[![Build Status](https://travis-ci.org/oandreeeee/andgearbest.svg?branch=master)](https://travis-ci.org/oandreeeee/andgearbest)
+[![Build Status](https://travis-ci.org/andxpto/andgearbest.svg?branch=master)](https://travis-ci.org/oandreeeee/andgearbest)
 [![NuGet version](https://badge.fury.io/nu/andgearbest.svg)](https://badge.fury.io/nu/andgearbest)
 
-A simple C# Wrapper for the Gearbest Associate Program api.
+dotnet API Client for the Gearbest Associate Program api
 
 ## Installation
 
@@ -13,6 +13,8 @@ PM> Install-Package AndGearbest
 ```
 
 ## Usage
+
+**Note:** Check [dev branch](https://github.com/andxpto/andgearbest/tree/dev) for next features or improves
 
 ### Main API
 First of all, in order to use the api you need to be a member of the Gearbest Affiliate program and susbcribed to the API in order to get an ApiKey and ApiSecret.

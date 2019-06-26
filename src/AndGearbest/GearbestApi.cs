@@ -66,8 +66,6 @@
                 arguments.Add("language", languageType.ToString());
             }
 
-            arguments.Add("language", "bbb");
-
             return await HandleGetResquest<Coupon>(couponResource, arguments);
         }
 
@@ -82,11 +80,7 @@
                 { "page", page.ToString() }
             };
 
-            var request = requestBase.PrepareRequest(productCreativeResource, HttpMethod.Get, arguments);
-
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<ProductCreative>>(response);
+            return await HandleGetResquest<ProductCreative>(productCreativeResource, arguments);
         }
 
         public async Task<ResponseData<EventCreative>> GetEventCreativeAsync(EventType eventType, int page = 1)
@@ -99,12 +93,8 @@
                 { "type", eventType.ToString("D") },
                 { "page", page.ToString() }
             };
-
-            var request = requestBase.PrepareRequest(eventCreativeResource, HttpMethod.Get, arguments);
-
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<EventCreative>>(response);
+            
+            return await HandleGetResquest<EventCreative>(eventCreativeResource, arguments);
         }
 
         public async Task<ResponseData<PromotionProduct>> GetPromotionProductAsync(CurrencyType currencyType, int page = 1)
@@ -118,11 +108,7 @@
                 { "page", page.ToString() }
             };
 
-            var request = requestBase.PrepareRequest(promotionProductResource, HttpMethod.Get, arguments);
-
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<PromotionProduct>>(response);
+            return await HandleGetResquest<PromotionProduct>(promotionProductResource, arguments);
         }
 
         public async Task<ResponseData<CompletedOrder>> GetCompletedOrderAsync(DateTime startDate, DateTime endDate, int page = 1)
@@ -137,11 +123,7 @@
                 { "page", page.ToString() }
             };
 
-            var request = requestBase.PrepareRequest(completedOrdersResource, HttpMethod.Get, arguments);
-
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<CompletedOrder>>(response);
+            return await HandleGetResquest<CompletedOrder>(completedOrdersResource, arguments);
         }
 
         private async Task<ResponseData<T>> HandleGetResquest<T>(string resource, Dictionary<string, string> arguments)
@@ -156,13 +138,17 @@
             }
             catch (JsonSerializationException)
             {
-                var aa = JsonConvert.DeserializeObject<ResponseDataError>(response, new JsonSerializerSettings
+                var errorResponse = JsonConvert.DeserializeObject<ResponseDataError>(response, new JsonSerializerSettings
                 {
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 });
 
-                var b = aa as ResponseData<T>;
-                return new ResponseData<T>();
+                return new ResponseData<T>() 
+                { 
+                    Message = errorResponse.Message,
+                    ErrorNo = errorResponse.ErrorNo,
+                    Request = errorResponse.Request
+                };
             }
             catch (Exception)
             {

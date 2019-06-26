@@ -1,17 +1,17 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>AndGearbest</PackageId>
-        <PackageVersion>0.2.2-dev</PackageVersion>
-        <Authors>andcorreia</Authors>
-        <Description>A wrapper for Gearbest Associate Program api. Under Development</Description>
+        <PackageVersion>0.2.3</PackageVersion>
+        <Authors>andxpto</Authors>
+        <Description>API Client Gearbest Associate Program</Description>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <Copyright>Copyright 2017 (c) André Correia</Copyright>
-        <PackageTags>gearbest wrapper</PackageTags>
-        <PackageProjectUrl>https://github.com/oandreeeee/andgearbest</PackageProjectUrl>
-        <PackageIconUrl>https://raw.githubusercontent.com/oandreeeee/andgearbest/master/logo.png</PackageIconUrl>
+        <PackageTags>gearbest wrapper api client affiliate </PackageTags>
+        <PackageProjectUrl>https://github.com/andxpto/andgearbest</PackageProjectUrl>
+        <PackageIconUrl>https://raw.githubusercontent.com/andxpto/andgearbest/master/logo.png</PackageIconUrl>
     </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     </ItemGroup>

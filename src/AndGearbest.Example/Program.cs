@@ -17,12 +17,12 @@ namespace AndGearbest.Example
 
                 IGearbestApi api = GearbestApi.GetGearbestApi(key, secret);
 
-                var coupons = api.GetCouponsAsync(Category.CellPhones, LanguageType.po).Result;
+                var coupons = api.GetCouponsAsync(category: Category.ConsumerEletronics).Result;
                 
-                //foreach (var c in coupons.Data.Items.GroupBy(c => c.Language))
-                //{
-                //    Console.WriteLine(c.Key);
-                //}
+                foreach (var c in coupons.Data.Items.GroupBy(c => c.Category))
+                {
+                   Console.WriteLine(c.Key);
+                }
 
                 if (false)
                 {

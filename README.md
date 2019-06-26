@@ -28,7 +28,7 @@ var api = AndGearbestApi.GetGearbestApi(<API_KEY>, <API_SECRET>, <LKID(optional)
 
 To get a coupons:
 ```c#
-  var coupons = api.GetCouponsAsync().Result;
+  var coupons = await api.GetCouponsAsync();
 ```
 
 Note: if any lkid as send, it uses a default lkid.
@@ -43,11 +43,11 @@ This wrapper uses [Newtonsoft.Json](https://www.nuget.org/packages/newtonsoft.js
 
 ## License
 
-Is under the [MIT license](LICENSE).
+[MIT license](LICENSE).
 
 ## Disclaimer
 
-Andgearbest isn't an official version or isn't build with relation to Gearbest registered trademarks. This is a self and indepent project. Used only the information and documention provided by Gearbest Associate Program
+Andgearbest isn't an official version or isn't build with relation to Gearbest registered trademarks. This is an indepent project. This project uses the information and documention provided by Gearbest Associate/Affiliate Program.
 
 ## Thanks
 To [Ben Fradet](https://github.com/BenFradet)

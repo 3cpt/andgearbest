@@ -16,3 +16,15 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   workingDirectory: 'src'
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: restore
+    projects: '**/AndGearbest.csproj'
+
+- script: dotnet pack /p:PackageVersion='0.3.$(Build.BuildId)' --configuration $(buildConfiguration)  -o $(Build.ArtifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop

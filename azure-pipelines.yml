@@ -6,16 +6,14 @@
 trigger:
 - master
 
-name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
-
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
   project: 'src/AndGearbest/AndGearbest.csproj'
   buildConfiguration: 'Release'
-  Major: '0'
-  Minor: '3'
+
+name: $(majorVersion).$(minorVersion)$(Rev:.r)
 
 steps:
 - task: DotNetCoreCLI@2

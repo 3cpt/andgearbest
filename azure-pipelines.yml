@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  mainProject: 'src/AndGearbest/AndGearbest.csproj'
+  project: '/src/AndGearbest/AndGearbest.csproj'
   buildConfiguration: 'Release'
   Major: '0'
   Minor: '3'
@@ -19,17 +19,17 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: build
+    projects: '$(project)'
     configurationToPack: '$(buildConfiguration)'
-    projects: '$(mainProject)'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: pack
-    packagesToPack: '$(mainProject)'
+    projects: '$(mainProject)'
     versioningScheme: byPrereleaseNumber
-    majorVersion: '$(Major)'
-    minorVersion: '$(Minor)'
-    patchVersion: '$(Build.BuildId)'
+    requestedMajorVersion: '$(Major)'
+    requestedMinorVersion: '$(Minor)'
+    requestedPatchVersion: '$(Build.BuildId)'
 
 - task: PublishBuildArtifacts@1
   inputs:

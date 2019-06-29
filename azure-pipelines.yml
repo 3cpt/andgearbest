@@ -27,8 +27,3 @@ steps:
     command: pack
     projects: '$(project)'
     versioningScheme: byBuildNumber
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: nuget_package

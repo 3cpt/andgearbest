@@ -6,7 +6,7 @@
 trigger:
 - master
 
-name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -28,10 +28,7 @@ steps:
   inputs:
     command: pack
     projects: '$(project)'
-    versioningScheme: byPrereleaseNumber
-    requestedMajorVersion: '$(Major)'
-    requestedMinorVersion: '$(Minor)'
-    requestedPatchVersion: '$(Build.BuildId)'
+    versioningScheme: byBuildNumber
 
 - task: PublishBuildArtifacts@1
   inputs:

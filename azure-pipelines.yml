@@ -10,19 +10,26 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  mainProject: 'src/AndGearbest/AndGearbest.csproj'
   buildConfiguration: 'Release'
+  Major: '0'
+  Minor: '3'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  workingDirectory: 'src'
-  displayName: 'dotnet build $(buildConfiguration)'
-
 - task: DotNetCoreCLI@2
   inputs:
-    command: restore
-    projects: '**/AndGearbest.csproj'
+    command: build
+    configurationToPack: '$(buildConfiguration)'
+    projects: '$(mainProject)'
 
-- script: dotnet pack /p:PackageVersion='0.3.$(Build.BuildId)' --configuration $(buildConfiguration)  -o $(Build.ArtifactStagingDirectory)
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '$(mainProject)'
+    versioningScheme: byPrereleaseNumber
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Build.BuildId)'
 
 - task: PublishBuildArtifacts@1
   inputs:

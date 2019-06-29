@@ -25,7 +25,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: pack
-    projects: '$(mainProject)'
+    projects: '$(project)'
     versioningScheme: byPrereleaseNumber
     requestedMajorVersion: '$(Major)'
     requestedMinorVersion: '$(Minor)'

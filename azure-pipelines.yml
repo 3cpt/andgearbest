@@ -24,6 +24,13 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: pack
-    projects: '$(project)'
-    versioningScheme: byBuildNumber
+    command: 'pack'
+    packagesToPack: 'src/AndGearbest/AndGearbest.csproj'
+    versioningScheme: 'byBuildNumber'
+    verbosityPack: 'Minimal'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

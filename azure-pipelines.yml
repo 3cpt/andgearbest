@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  project: '/src/AndGearbest/AndGearbest.csproj'
+  project: 'src/AndGearbest/AndGearbest.csproj'
   buildConfiguration: 'Release'
   Major: '0'
   Minor: '3'

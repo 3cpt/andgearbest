@@ -16,4 +16,16 @@
         [JsonProperty("data")]
         public ResponseDetail<TType> Data { get; set; }
     }
+
+    public class ResponseDataError
+    {
+        [JsonProperty("error_no")]
+        public int ErrorNo { get; set; }
+
+        [JsonProperty("msg")]
+        public string Message { get; set; }
+
+        [JsonProperty("request")]
+        public string Request { get; set; }
+    }
 }

@@ -12,31 +12,30 @@
     public sealed class GearbestApi : IGearbestApi
     {
         private const string couponResource = "/coupon/list-coupons";
+
         private const string productCreativeResource = "/promotions/list-product-creative";
+
         private const string eventCreativeResource = "/banner/list-event-creative";
+
         private const string promotionProductResource = "/products/list-promotion-products";
+
         private const string completedOrdersResource = "/orders/completed-orders";
 
         private readonly RequestBase requestBase;
-        private static GearbestApi gearbestApi;
 
+        public GearbestApi(string apiKey, string secretKey)
+        {
+            if (this.requestBase == null)
+            {
+                this.requestBase = new RequestBase(apiKey, secretKey, null);
+            }
+        }
         public GearbestApi(string apiKey, string secretKey, string lkid)
         {
             if (this.requestBase == null)
             {
                 this.requestBase = new RequestBase(apiKey, secretKey, lkid);
             }
-        }
-
-        public static GearbestApi GetGearbestApi(string apiKey, string secretKey, string lkid = null)
-        {
-            // todo : verify also the key and secret
-            if (gearbestApi == null)
-            {
-                gearbestApi = new GearbestApi(apiKey, secretKey, lkid);
-            }
-
-            return gearbestApi;
         }
 
         public async Task<ResponseData<Coupon>> GetCouponsAsync(Category category, LanguageType languageType, int page)
@@ -61,31 +60,7 @@
                 arguments.Add("language", languageType.ToString());
             }
 
-            var request = requestBase.PrepareRequest(couponResource, HttpMethod.Get, arguments);
-            var response = await requestBase.GetAsync(request);
-
-            try
-            {
-                return JsonConvert.DeserializeObject<ResponseData<Coupon>>(response);
-            }
-            catch (JsonSerializationException)
-            {
-                var aa = JsonConvert.DeserializeObject<object>(response, new JsonSerializerSettings
-                {
-                    MissingMemberHandling = MissingMemberHandling.Ignore
-                });
-
-                return null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public class WrapperObject
-        {
-            public object[] messages { get; set; }
+            return await HandleGetResquest<Coupon>(couponResource, arguments);
         }
 
         public async Task<ResponseData<ProductCreative>> GetProductCreativeAsync(ProductCreativeType productCreativeType, int page = 1)
@@ -99,10 +74,7 @@
                 { "page", page.ToString() }
             };
 
-            var request = requestBase.PrepareRequest(productCreativeResource, HttpMethod.Get, arguments);
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<ProductCreative>>(response);
+            return await HandleGetResquest<ProductCreative>(productCreativeResource, arguments);
         }
 
         public async Task<ResponseData<EventCreative>> GetEventCreativeAsync(EventType eventType, int page = 1)
@@ -115,11 +87,8 @@
                 { "type", eventType.ToString("D") },
                 { "page", page.ToString() }
             };
-
-            var request = requestBase.PrepareRequest(eventCreativeResource, HttpMethod.Get, arguments);
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<EventCreative>>(response);
+            
+            return await HandleGetResquest<EventCreative>(eventCreativeResource, arguments);
         }
 
         public async Task<ResponseData<PromotionProduct>> GetPromotionProductAsync(CurrencyType currencyType, int page = 1)
@@ -133,10 +102,7 @@
                 { "page", page.ToString() }
             };
 
-            var request = requestBase.PrepareRequest(promotionProductResource, HttpMethod.Get, arguments);
-            var response = await requestBase.GetAsync(request);
-
-            return JsonConvert.DeserializeObject<ResponseData<PromotionProduct>>(response);
+            return await HandleGetResquest<PromotionProduct>(promotionProductResource, arguments);
         }
 
         public async Task<ResponseData<CompletedOrder>> GetCompletedOrderAsync(DateTime startDate, DateTime endDate, int page = 1)
@@ -151,10 +117,47 @@
                 { "page", page.ToString() }
             };
 
-            var request = requestBase.PrepareRequest(completedOrdersResource, HttpMethod.Get, arguments);
+            return await HandleGetResquest<CompletedOrder>(completedOrdersResource, arguments);
+        }
+
+        private async Task<ResponseData<T>> HandleGetResquest<T>(string resource, Dictionary<string, string> arguments)
+        {
+            var request = requestBase.PrepareRequest(resource, HttpMethod.Get, arguments);
+
             var response = await requestBase.GetAsync(request);
 
-            return JsonConvert.DeserializeObject<ResponseData<CompletedOrder>>(response);
+            try
+            {
+                return Deserialize<T>(response);
+            }
+            catch (JsonSerializationException)
+            {
+                var errorResponse = JsonConvert.DeserializeObject<ResponseDataError>(response, new JsonSerializerSettings
+                {
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                });
+
+                return new ResponseData<T>() 
+                { 
+                    Message = errorResponse.Message,
+                    ErrorNo = errorResponse.ErrorNo,
+                    Request = errorResponse.Request
+                };
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private ResponseData<T> Deserialize<T>(string response)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                DateFormatString = "yyyy-MM-dd HH:mm:ss"
+            };
+
+            return JsonConvert.DeserializeObject<ResponseData<T>>(response, settings);
         }
     }
 }

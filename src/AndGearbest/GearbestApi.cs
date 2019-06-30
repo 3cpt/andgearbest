@@ -23,25 +23,19 @@
 
         private readonly RequestBase requestBase;
 
-        private static GearbestApi gearbestApi;
-
+        public GearbestApi(string apiKey, string secretKey)
+        {
+            if (this.requestBase == null)
+            {
+                this.requestBase = new RequestBase(apiKey, secretKey, null);
+            }
+        }
         public GearbestApi(string apiKey, string secretKey, string lkid)
         {
             if (this.requestBase == null)
             {
                 this.requestBase = new RequestBase(apiKey, secretKey, lkid);
             }
-        }
-
-        public static GearbestApi GetGearbestApi(string apiKey, string secretKey, string lkid = null)
-        {
-            // todo : verify also the key and secret
-            if (gearbestApi == null)
-            {
-                gearbestApi = new GearbestApi(apiKey, secretKey, lkid);
-            }
-
-            return gearbestApi;
         }
 
         public async Task<ResponseData<Coupon>> GetCouponsAsync(Category category, LanguageType languageType, int page)

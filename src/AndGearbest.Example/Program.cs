@@ -15,7 +15,7 @@ namespace AndGearbest.Example
 
                 Console.WriteLine("Hello World!");
 
-                IGearbestApi api = GearbestApi.GetGearbestApi(key, secret);
+                IGearbestApi api = new GearbestApi(key, secret);
 
                 var coupons = api.GetCouponsAsync(category: Category.ConsumerEletronics).Result;
                 

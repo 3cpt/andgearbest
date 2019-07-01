@@ -36,7 +36,7 @@
         public decimal SalePrice { get; set; }
 
         [JsonProperty("discounted_price")]
-        public decimal DiscountedPrice { get; set; }
+        public decimal? DiscountedPrice { get; set; }
 
         [JsonProperty("discount_percent")]
         public decimal? DiscountPercent { get; set; }

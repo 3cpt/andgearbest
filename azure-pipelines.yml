@@ -6,6 +6,9 @@
 trigger:
 - master
 
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&tabs=yaml#pr-triggers
+pr: none
+
 pool:
   vmImage: 'ubuntu-latest'
 

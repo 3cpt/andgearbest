@@ -15,3 +15,8 @@ jobs:
         dotnet-version: 2.2.108
     - name: Build with dotnet
       run: dotnet build --configuration Release src/AndGearbest/AndGearbest.csproj
+    - name: Tag commit
+      uses: tvdias/github-tagger
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        tag: "0.3.14"

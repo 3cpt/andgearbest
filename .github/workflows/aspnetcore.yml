@@ -1,6 +1,6 @@
 name: ASP.NET Core CI
 
-on: [push]
+on: [tag]
 
 jobs:
   build:
@@ -15,8 +15,3 @@ jobs:
         dotnet-version: 2.2.108
     - name: Build with dotnet
       run: dotnet build --configuration Release src/AndGearbest/AndGearbest.csproj
-    - name: Tag commit
-      uses: tvdias/github-tagger@master
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        tag: "0.3.14"

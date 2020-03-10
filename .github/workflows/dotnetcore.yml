@@ -1,0 +1,24 @@
+name: .NET Core
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build with dotnet
+      run: dotnet build ./src/AndGearbest/AndGearbest.csproj -p:Version=${{ steps.branch_name.outputs.SOURCE_TAG }} -c Release
+    - name: Pack with dotnet
+      run: dotnet pack ./src/AndGearbest/AndGearbest.csproj --no-build -p:Version=${{ steps.branch_name.outputs.SOURCE_TAG }} -c Release
+    - name: Push to nuget
+      run: dotnet push nuget -k ${{ secret.nuget_secret }}

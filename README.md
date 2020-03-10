@@ -1,9 +1,12 @@
 # AndGearbest
 
+<p align="center">
+  <img src="https://github.com/andxpto/andgearbest/blob/master/logo.png?raw=true" alt="Sublime's custom image"/>
+</p>
+
 [![Build Status](https://travis-ci.org/andxpto/andgearbest.svg?branch=master)](https://travis-ci.org/oandreeeee/andgearbest)
 [![NuGet version](https://badge.fury.io/nu/andgearbest.svg)](https://badge.fury.io/nu/andgearbest)
-[![Build Status](https://andcorreia.visualstudio.com/andgearbest/_apis/build/status/andxpto.andgearbest?branchName=master)](https://andcorreia.visualstudio.com/andgearbest/_build/latest?definitionId=8&branchName=master)
-[![Build Status](https://andcorreia.visualstudio.com/andgearbest/_apis/build/status/andxpto.andgearbest?branchName=dev)](https://andcorreia.visualstudio.com/andgearbest/_build/latest?definitionId=8&branchName=dev)
+
 
 dotnet API Client for the Gearbest Associate Program api
 

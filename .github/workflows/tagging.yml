@@ -23,4 +23,4 @@ jobs:
     - name: Pack with dotnet
       run: dotnet pack ./src/AndGearbest/AndGearbest.csproj --no-build -p:Version=${{ steps.tagging.outputs.new_tag }} -c Release -o ./drop
     - name: Push to nuget
-      run: dotnet nuget push ./drop -k ${{ secrets.nuget_secret }}
+      run: dotnet nuget push ./drop/*.nupkg -k ${{ secrets.nuget_secret }} -s https://api.nuget.org/v3/index.json

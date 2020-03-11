@@ -2,8 +2,7 @@ name: .NET Core
 
 on:
   release:
-    types: # This configuration does not affect the page_build event above
-      - created
+    types: [published, created, edited]
 
 jobs:
   build:

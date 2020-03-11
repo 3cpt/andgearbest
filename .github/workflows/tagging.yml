@@ -23,4 +23,4 @@ jobs:
     - name: Pack with dotnet
       run: dotnet pack ./src/AndGearbest/AndGearbest.csproj --no-build -p:Version=${{ steps.tagging.outputs.new_tag }} -c Release
     - name: Push to nuget
-      run: dotnet push nuget -k ${{ secret.nuget_secret }}
+      run: dotnet push nuget -k ${{ secrets.nuget_secret }}

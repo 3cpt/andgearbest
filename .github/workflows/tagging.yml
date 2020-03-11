@@ -9,7 +9,18 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Bump version and push tag
+      id: tagging
       uses: anothrNick/github-tag-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPO_OWNER: andxpto
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build with dotnet
+      run: dotnet build ./src/AndGearbest/AndGearbest.csproj -p:Version=${{ steps.tagging.outputs.new_tag }} -c Release
+    - name: Pack with dotnet
+      run: dotnet pack ./src/AndGearbest/AndGearbest.csproj --no-build -p:Version=${{ steps.tagging.outputs.new_tag }} -c Release
+    - name: Push to nuget
+      run: dotnet push nuget -k ${{ secret.nuget_secret }}

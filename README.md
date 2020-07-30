@@ -6,6 +6,7 @@
 
 [![Build Status](https://travis-ci.org/andxpto/andgearbest.svg?branch=master)](https://travis-ci.org/oandreeeee/andgearbest)
 [![NuGet version](https://badge.fury.io/nu/andgearbest.svg)](https://badge.fury.io/nu/andgearbest)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fandxpto%2Fandgearbest.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fandxpto%2Fandgearbest?ref=badge_shield)
 
 
 dotnet API Client for the Gearbest Associate Program api
@@ -47,6 +48,9 @@ This wrapper uses [Newtonsoft.Json](https://www.nuget.org/packages/newtonsoft.js
 ## License
 
 [MIT license](LICENSE).
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fandxpto%2Fandgearbest.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fandxpto%2Fandgearbest?ref=badge_large)
 
 ## Disclaimer
 
